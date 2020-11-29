@@ -1,0 +1,122 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>seeklink maker for YouTube</title>
+<meta name="viewport" content="width=device-width">
+<meta property="og:image" content="seeklinkmaker.png">
+<link rel="apple-touch-icon" href="seeklinkmaker.png">
+<script type="module">
+import { LchColorWheel } from "./LchColorWheel.js";
+
+window.onload = () => {
+	const w = Math.min(window.innerWidth, window.innerHeight * .5) * .8;
+	const colorWheel = new LchColorWheel({
+		appendTo: colorPicker,
+		wheelDiameter: w,
+		wheelThickness: w * .1,
+		handleDiameter: w * .08,
+		drawsRgbValidityBoundary: true,
+	});
+	let selected = div1;
+	const cssColor = (rgb) => `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+	colorWheel.onChange = () => {
+		const lch = colorWheel.lch;
+		console.log(lch);
+		const rgb = colorWheel.rgb;
+		const color = cssColor(rgb);
+		selected.style.backgroundColor = color;
+		selected.rgb = rgb;
+		selected.textContent = color;
+	};
+	div1.onclick = div2.onclick = div3.onclick = function() {
+		selected = this;
+		if (selected.rgb) {
+			colorWheel.rgb = selected.rgb;
+		}
+	};
+	cp1.onclick = function() {
+		div2.style.backgroundColor = div1.style.backgroundColor;
+		div2.textContent = div1.textContent;
+		div2.rgb = div1.rgb;
+	};
+	cp2.onclick = function() {
+		div3.style.backgroundColor = div2.style.backgroundColor;
+		div3.textContent = div2.textContent;
+		div3.rgb = div2.rgb;
+	};
+	rnd.onclick = function() {
+		const rgb = [];
+		for (let i = 0; i < 3; i++) {
+			rgb[i] = Math.floor(Math.random() * 256);
+		}
+		colorWheel.rgb = rgb;
+		div1.textContent = div1.style.backgroundColor = cssColor(rgb);
+		div1.rgb = div2.rgb = div3.rgb = rgb;
+		div2.textContent = div2.style.backgroundColor = cssColor(rgb);
+		div3.textContent = div3.style.backgroundColor = cssColor(rgb);
+		selected = div1;
+		/*
+		const lch = colorWheel.lch;
+		lch[0] += 10;
+		colorWheel.lch = lch;
+		const rgb2 = colorWheel.rgb;
+		div2.textContent = div2.style.backgroundColor = cssColor(rgb2);
+
+		const lch2 = colorWheel.lch;
+		lch2[0] += 10;
+		colorWheel.lch = lch2;
+		const rgb3 = colorWheel.rgb;
+		div3.textContent = div3.style.backgroundColor = cssColor(rgb3);
+		*/
+	};
+	rnd.onclick();
+};
+
+</script>
+<style>
+body {
+	margin: 0;
+	text-align: center;
+	font-family: sans-serif;
+}
+#colors {
+	display: grid;
+	grid-template-columns: 3fr 2fr 1fr;
+	margin-bottom: 3vh;
+	font-size: 60%;
+}
+#colors div {
+	padding-top: 20vh;
+	height: 20vh;
+}
+#colors button {
+	height: 3em;
+}
+#src {
+	margin: .5em;
+	font-size: 80%;
+}
+a {
+	color: gray !important;
+}
+</style>
+</head>
+<body>
+
+<div id="main">
+	<div id="colors">
+		<div id=div1></div>
+		<div id=div2></div>
+		<div id=div3></div>
+		<button id="cp1">→</button>
+		<button id="cp2">→</button>
+		<button id="rnd">rnd</button>
+	</div>
+	<div id="colorPicker"></div>
+</div>
+
+<div id=src>
+	APP: CC BY <a href="https://fukuno.jig.jp/3048">fukuno.jig.jp</a><br>
+	LIB: <a href=http://www.wtfpl.net/>WTFPL</a> <a href=https://github.com/luncheon/lch-color-wheel>luncheon/lch-color-wheel: A wheel-style color picker based on CIE L*C*h color space.</a><br>
+</div>
+
+</body>
+</html>

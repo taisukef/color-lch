@@ -1,0 +1,40 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>LCh color picker test</title>
+<meta name="viewport" content="width=device-width">
+
+<script type="module">
+import { LchColorWheel } from "./LchColorWheel.js";
+
+const colorWheel = new LchColorWheel({ appendTo: colorPicker });
+
+colorWheel.onChange = () => {
+	console.log("lch", colorWheel.lch, "rgb", colorWheel.rgb);
+};
+
+</script>
+<style>
+body {
+	text-align: center;
+}
+#src {
+	margin: .5em;
+	font-size: 80%;
+}
+a {
+	color: gray !important;
+}
+</style>
+</head>
+<body>
+
+<div id="main">
+	<div id="colorPicker"></div>
+</div>
+
+<div id=src>
+APP: CC BY <a href="https://fukuno.jig.jp/3048">fukuno.jig.jp</a><br>
+LIB: <a href=http://www.wtfpl.net/>WTFPL</a> <a href=https://github.com/luncheon/lch-color-wheel>luncheon/lch-color-wheel: A wheel-style color picker based on CIE L*C*h color space.</a><br>
+</div>
+
+</body>
+</html>
