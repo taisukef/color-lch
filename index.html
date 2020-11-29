@@ -1,8 +1,8 @@
 <!DOCTYPE html><html><head><meta charset="utf-8">
-<title>seeklink maker for YouTube</title>
+<title>LCh 3 colors picker</title>
 <meta name="viewport" content="width=device-width">
-<meta property="og:image" content="seeklinkmaker.png">
-<link rel="apple-touch-icon" href="seeklinkmaker.png">
+<meta property="og:image" content="https://taisukef.github.io/color-lch/color-lch.png">
+<link rel="apple-touch-icon" href="https://taisukef.github.io/color-lch/color-lch.png">
 <script type="module">
 import { LchColorWheel } from "./LchColorWheel.js";
 
@@ -36,11 +36,13 @@ window.onload = () => {
 		div2.style.backgroundColor = div1.style.backgroundColor;
 		div2.textContent = div1.textContent;
 		div2.rgb = div1.rgb;
+		selected = div2;
 	};
 	cp2.onclick = function() {
 		div3.style.backgroundColor = div2.style.backgroundColor;
 		div3.textContent = div2.textContent;
 		div3.rgb = div2.rgb;
+		selected = div3;
 	};
 	rnd.onclick = function() {
 		const rgb = [];
